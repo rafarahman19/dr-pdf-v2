@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8faf9;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --muted: #f1f5f4;
+  --muted-foreground: #475569;
+  --border: #dce5e2;
+  --primary: #047857;
+  --primary-foreground: #ffffff;
+  --accent: #ecfdf5;
+  --accent-foreground: #065f46;
+  --ring: #10b981;
+}
+
+.dark {
+  --background: #070d0b;
+  --foreground: #f1f5f9;
+  --card: #0d1714;
+  --card-foreground: #f1f5f9;
+  --muted: #13221d;
+  --muted-foreground: #94a3b8;
+  --border: #1e352d;
+  --primary: #34d399;
+  --primary-foreground: #022c22;
+  --accent: #0f2920;
+  --accent-foreground: #6ee7b7;
+  --ring: #34d399;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Subtle ambient medical aurora background */
+.drpdf-ambient-bg {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.09) 0px, transparent 52%),
+    radial-gradient(at 100% 10%, rgba(20, 184, 166, 0.08) 0px, transparent 48%),
+    radial-gradient(at 50% 100%, rgba(5, 150, 105, 0.05) 0px, transparent 55%);
+}
+
+.dark .drpdf-ambient-bg {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.14) 0px, transparent 52%),
+    radial-gradient(at 100% 10%, rgba(20, 184, 166, 0.1) 0px, transparent 48%),
+    radial-gradient(at 50% 100%, rgba(5, 150, 105, 0.08) 0px, transparent 55%);
+}
+
+/* 3D Flashcard perspective utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Markdown Typography & Mobile-Safe Tables */
+.drpdf-markdown {
+  line-height: 1.7;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.drpdf-markdown h1,
+.drpdf-markdown h2,
+.drpdf-markdown h3,
+.drpdf-markdown h4 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.drpdf-markdown h2 {
+  font-size: 1.2rem;
+}
+
+.drpdf-markdown h3 {
+  font-size: 1.05rem;
+  color: #047857;
+}
+
+.dark .drpdf-markdown h3 {
+  color: #34d399;
+}
+
+.drpdf-markdown p {
+  margin-bottom: 0.85rem;
+}
+
+.drpdf-markdown ul,
+.drpdf-markdown ol {
+  margin-bottom: 0.9rem;
+  padding-left: 1.35rem;
+}
+
+.drpdf-markdown ul {
+  list-style-type: disc;
+}
+
+.drpdf-markdown ol {
+  list-style-type: decimal;
+}
+
+.drpdf-markdown li {
+  margin-bottom: 0.35rem;
+}
+
+.drpdf-markdown blockquote {
+  border-left: 3px solid #10b981;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.5rem;
+  margin: 0.85rem 0;
+  font-size: 0.875rem;
+}
+
+.drpdf-markdown strong {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
